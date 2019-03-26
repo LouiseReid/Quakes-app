@@ -43,6 +43,7 @@ void main(List<String> args) async {
                       : Colors.red,
                   child: Text(_features[index]["properties"]["mag"].toString()),
                 ),
+                onTap: () => showTapMessage(context, _features[index]["properties"]["mag"], _features[index]["properties"]["place"]),
               )
             ],
           );
@@ -50,6 +51,22 @@ void main(List<String> args) async {
       ),
     ),
   )));
+}
+
+void showTapMessage(BuildContext context, double mag, String location) {
+    var alertDialog = new AlertDialog(
+    title: Text('Quake'),
+    content: Text("M ${mag.toString()} - $location"),
+    actions: <Widget>[
+      FlatButton(
+        child: Text('Close'),
+        onPressed: () => Navigator.of(context).pop(),
+      )
+    ],
+  );
+  showDialog(context: context, builder: (context){
+    return alertDialog;
+  });
 }
 
 Future<Map> getData() async {
